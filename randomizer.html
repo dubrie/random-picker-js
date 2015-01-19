@@ -22,6 +22,14 @@ $(document).ready(function() {
 	    return arr;
 	};
 
+	$("#reset").click(function() {
+		$("#thing_list li").each(function(){
+			if( $( this ).hasClass( "picked" )) {
+				$(this).removeClass( "picked" );
+			}
+		});
+	});
+
 	$("#picker").click(function(){
 		teams = [];
 		// Collect all items in the UL list that are not picked
@@ -62,6 +70,7 @@ $(document).ready(function() {
 </ul>
 
 <input id="picker" type="button" value="Pick One!" />
+<input id="reset" type="button" value="Reset" />
 
 <p class="next-item">
 Picked Item: <span id="next_item"></span>
