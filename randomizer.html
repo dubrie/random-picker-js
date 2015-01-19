@@ -1,0 +1,71 @@
+<html>
+
+<head>
+<style>
+li.picked {
+	text-decoration: line-through;
+	font-style: italic;
+}
+.next-item {
+	font-size: 18px;
+	font-weight: bold;
+}
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	// Curtousey of http://onwebdev.blogspot.com/2011/05/jquery-randomize-and-shuffle-array.html
+	$.randomize = function(arr) {
+	    for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+	    return arr;
+	};
+
+	$("#picker").click(function(){
+		teams = [];
+		// Collect all items in the UL list that are not picked
+		$("#thing_list li").each(function(){
+			if( !$( this ).hasClass( "picked" )) {
+				teams.push($(this).attr('id'));
+			}
+		});
+
+		var shuffled = $.randomize(teams)
+
+		var item = shuffled[Math.floor(Math.random()*shuffled.length)];
+		$("#next_item").text($("#"+item).text());
+
+		// Mark team as picked
+		$("li#"+item).addClass("picked");
+	});
+
+});
+</script>
+</head>
+<body>
+
+</body>
+<h1>Javascript Random Picker</h1>
+
+<h3>List of Things</h3>
+
+<ul id="thing_list">
+	<li id="thing1">Thing 1</li>
+	<li id="thing2">Thing 2</li>
+	<li id="cat-in-the-hat">Cat In The Hat</li>
+	<li id="sally">Sally</li>
+	<li id="boy">The Boy</li>
+	<li id="mother">The Mother</li>
+	<li id="fish">The Fish</li>
+	<li id="dr-suess">Dr. Suess</li>
+</ul>
+
+<input id="picker" type="button" value="Pick One!" />
+
+<p class="next-item">
+Picked Item: <span id="next_item"></span>
+</p>
+
+
+</html>
